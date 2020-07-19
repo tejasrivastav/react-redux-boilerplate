@@ -27,25 +27,20 @@ describe('<HomePage />', () => {
       <HomePage
         username="Not Empty"
         onChangeUsername={() => {}}
-        onSubmitForm={submitSpy}
+        loadPosts={submitSpy}
       />
     );
     expect(submitSpy).toHaveBeenCalled();
   });
 
-  it('should not call onSubmitForm if username is an empty string', () => {
-    const submitSpy = jest.fn();
-    mount(<HomePage onChangeUsername={() => {}} onSubmitForm={submitSpy} />);
-    expect(submitSpy).not.toHaveBeenCalled();
-  });
 
-  it('should not call onSubmitForm if username is null', () => {
+  it('should not call loadPosts if username is null', () => {
     const submitSpy = jest.fn();
     mount(
       <HomePage
         username=""
         onChangeUsername={() => {}}
-        onSubmitForm={submitSpy}
+        loadPosts={submitSpy}
       />
     );
     expect(submitSpy).not.toHaveBeenCalled();
@@ -68,25 +63,24 @@ describe('<HomePage />', () => {
       });
     });
 
-    describe('onSubmitForm', () => {
+    describe('loadPosts', () => {
       it('should be injected', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        expect(result.onSubmitForm).toBeDefined();
+        expect(result.loadPosts).toBeDefined();
       });
 
       it('should dispatch loadPosts when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        result.onSubmitForm();
+        result.loadPosts();
         expect(dispatch).toHaveBeenCalledWith(loadPosts());
       });
 
       it('should preventDefault if called with event', () => {
         const preventDefault = jest.fn();
         const result = mapDispatchToProps(() => {});
-        const evt = { preventDefault };
-        result.onSubmitForm(evt);
+        result.loadPosts();
         expect(preventDefault).toHaveBeenCalledWith();
       });
     });

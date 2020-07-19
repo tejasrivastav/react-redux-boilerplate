@@ -11,3 +11,4 @@
 
 export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
 export const CHANGE_TAB = 'boilerplate/Home/CHANGE_TAB';
+export const DELETE_POST = 'boilerplate/Home/DELETE_POST';

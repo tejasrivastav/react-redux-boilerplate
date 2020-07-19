@@ -1,9 +1,12 @@
-import { CHANGE_USERNAME, CHANGE_TAB } from './constants';
+import concat from 'lodash/concat';
+
+import { CHANGE_USERNAME, CHANGE_TAB, DELETE_POST } from './constants';
 
 // The initial state of the App
 const initialState = {
   username: '',
-  activeIndex: 0
+  activeIndex: 0,
+  deletedPosts: []
 };
 
 function homeReducer(state = initialState, action) {
@@ -13,6 +16,8 @@ function homeReducer(state = initialState, action) {
       return { ...state, username: action.name.replace(/@/gi, '') };
     case CHANGE_TAB:
       return { ...state, activeIndex: action.index };
+    case DELETE_POST:
+      return { ...state, deletedPosts: concat(state.deletedPosts, action.index) };
     default:
       return state;
   }

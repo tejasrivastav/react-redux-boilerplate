@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
+import differenceBy from 'lodash/differenceBy';
 
 import { initialState } from './reducer';
 
@@ -25,13 +26,20 @@ const makeSelectError = () => createSelector(
 
 const selectCategory = (state) => state.global.categoriesName[state.home.activeIndex];
 
+const selectDeletedPostIds = (state) => state.home.deletedPosts;
+
 const makeSelectPosts = () => createSelector(
   selectGlobal,
   selectCategory,
-  (globalState, category) => filter(
-    globalState.posts,
-    (post) => (post.category ? includes(post.category, category) : false)
-  )
+  selectDeletedPostIds,
+  (globalState, category, deletedPostIds) => {
+    deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
+    const reducedPosts = differenceBy(globalState.posts, deletedPostIds, 'id');
+    return filter(
+      reducedPosts,
+      (post) => (post.category ? includes(post.category, category) : false)
+    );
+  }
 );
 
 const makeSelectCategories = () => createSelector(

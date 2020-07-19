@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME, CHANGE_TAB } from './constants';
+import { CHANGE_USERNAME, CHANGE_TAB, DELETE_POST } from './constants';
 
 /**
  * Changes the input field of the form
@@ -34,6 +34,13 @@ export function changeUsername(name) {
 export function changeTab(index) {
   return {
     type: CHANGE_TAB,
+    index
+  };
+}
+
+export function deletePost(index) {
+  return {
+    type: DELETE_POST,
     index
   };
 }

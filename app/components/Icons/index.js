@@ -1,3 +1,4 @@
 import IssueIcon from './IssueIcon';
+import DeleteIcon from './DeleteIcon';
 
-export { IssueIcon };
+export { IssueIcon, DeleteIcon };

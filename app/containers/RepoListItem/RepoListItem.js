@@ -7,22 +7,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from 'components/ListItem';
-import { IssueIcon } from 'components/Icons';
+import { DeleteIcon } from 'components/Icons';
 import './style.scss';
 
 export default class RepoListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { item } = this.props;
+    const { item, deletePost } = this.props;
 
+    function deletePostHandler(evt) {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      deletePost(item.id);
+    }
+
+    const handleKeyDown = (evt) => {
+      if (evt.key === 'Enter') {
+        deletePost(evt);
+      }
+    };
     // Put together the content of the repository
     const content = (
       <div className="repo-list-item">
         <div className="repo-list-item__repo-link">
-          <span className="repo-list-item__repo-link-cat">{item.category ? item.category[0] : ''}</span>
           <span>{item.title}</span>
         </div>
-        <a className="repo-list-item__issue-link">
-          <IssueIcon className="repo-list-item__issue-icon" />
+        <a
+          role="button"
+          className="repo-list-item__del-link"
+          onClick={deletePostHandler}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        >
+          <DeleteIcon className="repo-list-item__del-icon" />
         </a>
       </div>
     );
@@ -35,5 +50,6 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
 }
 
 RepoListItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  deletePost: PropTypes.func
 };
