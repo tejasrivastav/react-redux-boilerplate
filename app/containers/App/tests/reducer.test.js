@@ -1,5 +1,5 @@
 import appReducer from '../reducer';
-import { loadRepos, reposLoaded, repoLoadingError } from '../actions';
+import { loadRepos, postsLoaded, postLoadingError } from '../actions';
 
 describe('appReducer', () => {
   let state;
@@ -29,7 +29,7 @@ describe('appReducer', () => {
     expect(appReducer(state, loadRepos())).toEqual(expectedResult);
   });
 
-  it('should handle the reposLoaded action correctly', () => {
+  it('should handle the postsLoaded action correctly', () => {
     const fixture = [
       {
         name: 'My Repo',
@@ -43,12 +43,12 @@ describe('appReducer', () => {
       userData: { repositories: fixture },
     };
 
-    expect(appReducer(state, reposLoaded(fixture, username))).toEqual(
+    expect(appReducer(state, postsLoaded(fixture, username))).toEqual(
       expectedResult,
     );
   });
 
-  it('should handle the repoLoadingError action correctly', () => {
+  it('should handle the postLoadingError action correctly', () => {
     const fixture = {
       msg: 'Not found',
     };
@@ -59,7 +59,7 @@ describe('appReducer', () => {
       loading: false,
     };
 
-    expect(appReducer(state, repoLoadingError(fixture))).toEqual(
+    expect(appReducer(state, postLoadingError(fixture))).toEqual(
       expectedResult,
     );
   });

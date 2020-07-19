@@ -22,7 +22,7 @@ const makeSelectError = () => createSelector(
 
 const makeSelectRepos = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.userData.repositories
+  (globalState) => globalState.repos
 );
 
 const makeSelectLocation = () => createSelector(
