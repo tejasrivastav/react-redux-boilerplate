@@ -1,11 +1,14 @@
-import { LOAD_POSTS_SUCCESS, LOAD_POSTS, LOAD_POSTS_ERROR } from './constants';
+import {
+  LOAD_POSTS_SUCCESS, LOAD_POSTS, LOAD_POSTS_ERROR, categoriesName
+} from './constants';
 
 // The initial state of the App
 export const initialState = {
   loading: false,
   error: false,
   currentUser: false,
-  repos: []
+  posts: [],
+  categoriesName
 };
 
 function appReducer(state = initialState, action) {
@@ -15,7 +18,7 @@ function appReducer(state = initialState, action) {
         ...state,
         loading: true,
         error: false,
-        repos: []
+        posts: []
       };
 
       return newState;
@@ -24,7 +27,7 @@ function appReducer(state = initialState, action) {
       const newState = {
         ...state,
         loading: false,
-        repos: action.repos,
+        posts: action.posts,
         currentUser: action.username,
       };
       return newState;

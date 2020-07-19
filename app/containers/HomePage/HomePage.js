@@ -9,18 +9,23 @@ import PropTypes from 'prop-types';
 import ReposList from 'components/ReposList';
 import './style.scss';
 
+import {
+  Tab, Tabs, TabList, TabPanel
+} from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
    * when initial state username is not null, submit the form to load repos
    */
   componentDidMount() {
-    const { loadRepos } = this.props;
-    loadRepos();
+    const { loadPosts } = this.props;
+    loadPosts();
   }
 
   render() {
     const {
-      loading, error, repos, username, onChangeUsername, onSubmitForm
+      loading, error, repos, changeTab, activeTab, categories
     } = this.props;
     const reposListProps = {
       loading,
@@ -28,31 +33,29 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       repos
     };
 
+    const tabs = categories.map((category) => ({
+      label: category,
+      content: (<div></div>)
+    }));
+    tabs[activeTab].content = (
+      <ReposList {...reposListProps} />
+    );
+
+    /* eslint-disable react/no-array-index-key */
     return (
       <article>
         <div className="home-page">
           <section className="centered">
-            <h2>Start your next react project in seconds</h2>
-            <p>
-              A minimal <i>React-Redux</i> boilerplate with all the best practices
-            </p>
-          </section>
-          <section>
-            <h2>Try me!</h2>
-            <form onSubmit={onSubmitForm}>
-              <label htmlFor="username">
-                Show Github repositories by
-                <span className="at-prefix">@</span>
-                <input
-                  id="username"
-                  type="text"
-                  placeholder="flexdinesh"
-                  value={username}
-                  onChange={onChangeUsername}
-                />
-              </label>
-            </form>
-            <ReposList {...reposListProps} />
+            <Tabs onSelect={changeTab}>
+              <TabList>
+                {
+                  tabs.map((tab, idx) => <Tab key={idx}>{tab.label}</Tab>)
+                }
+              </TabList>
+              {
+                tabs.map((tab, idx) => <TabPanel key={idx}>{tab.content}</TabPanel>)
+              }
+            </Tabs>
           </section>
         </div>
       </article>
@@ -64,7 +67,8 @@ HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
-  onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func
+  loadPosts: PropTypes.func,
+  changeTab: PropTypes.func,
+  activeTab: PropTypes.number,
+  categories: PropTypes.array
 };

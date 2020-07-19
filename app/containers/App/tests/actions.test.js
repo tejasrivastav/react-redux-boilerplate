@@ -5,19 +5,19 @@ import {
 } from '../constants';
 
 import {
-  loadRepos,
+  loadPosts,
   postsLoaded,
   postLoadingError,
 } from '../actions';
 
 describe('App Actions', () => {
-  describe('loadRepos', () => {
+  describe('loadPosts', () => {
     it('should return the correct type', () => {
       const expectedResult = {
         type: LOAD_POSTS,
       };
 
-      expect(loadRepos()).toEqual(expectedResult);
+      expect(loadPosts()).toEqual(expectedResult);
     });
   });
 
@@ -27,7 +27,7 @@ describe('App Actions', () => {
       const username = 'test';
       const expectedResult = {
         type: LOAD_POSTS_SUCCESS,
-        repos: fixture,
+        posts: fixture,
         username,
       };
 

@@ -22,32 +22,32 @@ import {
 } from './constants';
 
 /**
- * Load the repositories, this action starts the request saga
+ * Load the posts, this action starts the request saga
  *
  * @return {object} An action object with a type of LOAD_POSTS
  */
-export function loadRepos() {
+export function loadPosts() {
   return {
     type: LOAD_POSTS,
   };
 }
 
 /**
- * Dispatched when the repositories are loaded by the request saga
+ * Dispatched when the posts are loaded by the request saga
  *
- * @param  {array} repos The repository data
+ * @param  {array} posts The posts data
  *
- * @return {object}      An action object with a type of LOAD_POSTS_SUCCESS passing the repos
+ * @return {object}      An action object with a type of LOAD_POSTS_SUCCESS passing the posts
  */
-export function postsLoaded(repos) {
+export function postsLoaded(posts) {
   return {
     type: LOAD_POSTS_SUCCESS,
-    repos
+    posts
   };
 }
 
 /**
- * Dispatched when loading the repositories fails
+ * Dispatched when loading the posts fails
  *
  * @param  {object} error The error
  *

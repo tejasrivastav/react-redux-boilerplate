@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 
-const url = "https://jsonplaceholder.typicode.com";
+const url = 'https://jsonplaceholder.typicode.com';
 /**
  * Parses the JSON returned by a network request
  *
@@ -41,7 +41,7 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(endpoint, options) {
-  return fetch(url+endpoint, options)
+  return fetch(url + endpoint, options)
     .then(checkStatus)
     .then(parseJSON);
 }

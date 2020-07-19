@@ -13,19 +13,12 @@ import './style.scss';
 export default class RepoListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { item } = this.props;
-    let nameprefix = '';
-
-    // If the repository is owned by a different person than we got the data for
-    // it's a fork and we should show the name of the owner
-    // if (item.owner.login !== currentUser) {
-    //   nameprefix = `${item.owner.login}/`;
-    // }
 
     // Put together the content of the repository
     const content = (
       <div className="repo-list-item">
         <div className="repo-list-item__repo-link">
-          <span className="repo-list-item__repo-link-cat">{item.category ? item.category[0]: ""}</span>
+          <span className="repo-list-item__repo-link-cat">{item.category ? item.category[0] : ''}</span>
           <span>{item.title}</span>
         </div>
         <a className="repo-list-item__issue-link">
@@ -42,6 +35,5 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
 }
 
 RepoListItem.propTypes = {
-  item: PropTypes.object,
-  currentUser: PropTypes.string,
+  item: PropTypes.object
 };

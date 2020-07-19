@@ -3,7 +3,7 @@ import {
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
+  makeSelectPosts,
   makeSelectLocation,
 } from '../selectors';
 
@@ -56,15 +56,13 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectRepos', () => {
-  const reposSelector = makeSelectRepos();
+describe('makeSelectPosts', () => {
+  const reposSelector = makeSelectPosts();
   it('should select the repos', () => {
     const repositories = [];
     const mockedState = {
       global: {
-        userData: {
-          repositories,
-        },
+        posts: repositories
       },
     };
     expect(reposSelector(mockedState)).toEqual(repositories);

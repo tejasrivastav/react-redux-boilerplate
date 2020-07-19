@@ -1,5 +1,5 @@
 import appReducer from '../reducer';
-import { loadRepos, postsLoaded, postLoadingError } from '../actions';
+import { loadPosts, postsLoaded, postLoadingError } from '../actions';
 
 describe('appReducer', () => {
   let state;
@@ -8,9 +8,7 @@ describe('appReducer', () => {
       loading: false,
       error: false,
       currentUser: false,
-      userData: {
-        repositories: false,
-      },
+      posts: []
     };
   });
 
@@ -19,14 +17,14 @@ describe('appReducer', () => {
     expect(appReducer(undefined, {})).toEqual(expectedResult);
   });
 
-  it('should handle the loadRepos action correctly', () => {
+  it('should handle the loadPosts action correctly', () => {
     const expectedResult = {
       ...state,
       loading: true,
       error: false,
-      userData: { repositories: false },
+      posts: []
     };
-    expect(appReducer(state, loadRepos())).toEqual(expectedResult);
+    expect(appReducer(state, loadPosts())).toEqual(expectedResult);
   });
 
   it('should handle the postsLoaded action correctly', () => {
@@ -40,7 +38,7 @@ describe('appReducer', () => {
       ...state,
       loading: false,
       currentUser: username,
-      userData: { repositories: fixture },
+      posts: []
     };
 
     expect(appReducer(state, postsLoaded(fixture, username))).toEqual(

@@ -7,7 +7,13 @@ const makeSelectUsername = () => createSelector(
   (homeState) => homeState.username
 );
 
+const makeSelectTab = () => createSelector(
+  selectHome,
+  (homeState) => homeState.activeIndex
+);
+
 export {
   selectHome,
   makeSelectUsername,
+  makeSelectTab
 };

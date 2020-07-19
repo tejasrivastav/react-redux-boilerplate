@@ -4,30 +4,37 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
-  makeSelectRepos,
+  makeSelectPosts,
   makeSelectLoading,
-  makeSelectError
+  makeSelectError,
+  makeSelectCategories
 } from 'containers/App/selectors';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
+import { loadPosts } from 'containers/App/actions';
+
+import { changeUsername, changeTab } from './actions';
+import { makeSelectUsername, makeSelectTab } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
-  loadRepos: (evt) => {
+  loadPosts: (evt) => {
     if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch(loadRepos());
+    dispatch(loadPosts());
+  },
+  changeTab: (index) => {
+    dispatch(changeTab(index));
   }
 });
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
+  repos: makeSelectPosts(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
-  error: makeSelectError()
+  error: makeSelectError(),
+  activeTab: makeSelectTab(),
+  categories: makeSelectCategories()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

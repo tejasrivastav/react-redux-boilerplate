@@ -5,10 +5,13 @@ Object {
   "@@redux-saga/IO": true,
   "combinator": false,
   "payload": Object {
-    "args": Array [],
-    "selector": [Function],
+    "args": Array [
+      "/posts",
+    ],
+    "context": null,
+    "fn": [Function],
   },
-  "type": "SELECT",
+  "type": "CALL",
 }
 `;
 
@@ -17,13 +20,13 @@ Object {
   "@@redux-saga/IO": true,
   "combinator": false,
   "payload": Object {
-    "args": Array [
-      "https://api.github.com/users/flexdinesh/repos?type=all&sort=updated",
-    ],
-    "context": null,
-    "fn": [Function],
+    "action": Object {
+      "posts": "flexdinesh",
+      "type": "boilerplate/App/LOAD_POSTS_SUCCESS",
+    },
+    "channel": undefined,
   },
-  "type": "CALL",
+  "type": "PUT",
 }
 `;
 
@@ -32,10 +35,13 @@ Object {
   "@@redux-saga/IO": true,
   "combinator": false,
   "payload": Object {
-    "args": Array [],
-    "selector": [Function],
+    "args": Array [
+      "/posts",
+    ],
+    "context": null,
+    "fn": [Function],
   },
-  "type": "SELECT",
+  "type": "CALL",
 }
 `;
 
@@ -44,12 +50,12 @@ Object {
   "@@redux-saga/IO": true,
   "combinator": false,
   "payload": Object {
-    "args": Array [
-      "https://api.github.com/users/flexdinesh/repos?type=all&sort=updated",
-    ],
-    "context": null,
-    "fn": [Function],
+    "action": Object {
+      "posts": "flexdinesh",
+      "type": "boilerplate/App/LOAD_POSTS_SUCCESS",
+    },
+    "channel": undefined,
   },
-  "type": "CALL",
+  "type": "PUT",
 }
 `;

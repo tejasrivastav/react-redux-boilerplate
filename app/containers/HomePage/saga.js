@@ -3,20 +3,19 @@
  */
 
 import {
-  call, put, select, takeLatest
+  call, put, takeLatest
 } from 'redux-saga/effects';
 
 import { LOAD_POSTS } from 'containers/App/constants';
 import { postsLoaded, postLoadingError } from 'containers/App/actions';
 
-import request from 'utils/postRequest';
+import request from 'containers/HomePage/postRequest';
 
 /**
  * Posts request/response handler
  */
 export function* getPosts() {
-
-  const endpoint = "/posts";
+  const endpoint = '/posts';
 
   try {
     // Call our request helper (see 'utils/request')
