@@ -7,6 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReposList from 'components/ReposList';
+
+import { ReloadIcon } from 'components/Icons';
 import './style.scss';
 
 import {
@@ -25,7 +27,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
   render() {
     const {
-      loading, error, repos, changeTab, activeTab, categories
+      loading, error, repos, changeTab, activeTab, categories, reloadPosts
     } = this.props;
     const reposListProps = {
       loading,
@@ -41,11 +43,33 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       <ReposList {...reposListProps} />
     );
 
+
+    function reloadPostsHandler(evt) {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      reloadPosts();
+    }
+
+    const handleKeyDown = (evt) => {
+      if (evt.key === 'Enter') {
+        reloadPostsHandler(evt);
+      }
+    };
     /* eslint-disable react/no-array-index-key */
     return (
       <article>
         <div className="home-page">
           <section className="centered">
+            <div>
+              <a
+                role="button"
+                onClick={reloadPostsHandler}
+                onKeyDown={handleKeyDown}
+                tabIndex={0}
+                className="reload"
+              >
+                <ReloadIcon /> Reload
+              </a>
+            </div>
             <Tabs onSelect={changeTab}>
               <TabList>
                 {
@@ -69,6 +93,7 @@ HomePage.propTypes = {
   repos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
   loadPosts: PropTypes.func,
   changeTab: PropTypes.func,
+  reloadPosts: PropTypes.func,
   activeTab: PropTypes.number,
   categories: PropTypes.array
 };

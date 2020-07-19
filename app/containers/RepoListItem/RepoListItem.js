@@ -21,7 +21,7 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
 
     const handleKeyDown = (evt) => {
       if (evt.key === 'Enter') {
-        deletePost(evt);
+        deletePostHandler(evt);
       }
     };
     // Put together the content of the repository

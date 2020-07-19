@@ -15,7 +15,9 @@
  *    }
  */
 
-import { CHANGE_USERNAME, CHANGE_TAB, DELETE_POST } from './constants';
+import {
+  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS
+} from './constants';
 
 /**
  * Changes the input field of the form
@@ -42,5 +44,11 @@ export function deletePost(index) {
   return {
     type: DELETE_POST,
     index
+  };
+}
+
+export function reloadPosts() {
+  return {
+    type: RELOAD_POSTS
   };
 }

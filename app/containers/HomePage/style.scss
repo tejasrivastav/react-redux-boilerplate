@@ -1,9 +1,9 @@
 .home-page {
-  
+
   h2 {
     font-size: 1.5em;
   }
-  
+
   section {
     margin: 3em auto;
 
@@ -28,5 +28,9 @@
   span.at-prefix {
     color: black;
     margin-left: 0.4em;
+  }
+
+  .reload {
+    cursor: pointer;
   }
 }

@@ -1,6 +1,10 @@
-import { CHANGE_USERNAME } from '../constants';
+import {
+  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS
+} from '../constants';
 
-import { changeUsername } from '../actions';
+import {
+  changeUsername, changeTab, deletePost, reloadPosts
+} from '../actions';
 
 describe('Home Actions', () => {
   describe('changeUsername', () => {
@@ -12,6 +16,41 @@ describe('Home Actions', () => {
       };
 
       expect(changeUsername(fixture)).toEqual(expectedResult);
+    });
+  });
+
+  describe('changeTab', () => {
+    it('should return the correct type and the active index', () => {
+      const fixture = 1;
+      const expectedResult = {
+        type: CHANGE_TAB,
+        activeIndex: fixture
+      };
+
+      expect(changeTab(fixture)).toEqual(expectedResult);
+    });
+  });
+
+  describe('deletePost', () => {
+    it('should return the correct type and the deleted post id', () => {
+      const fixture = 1;
+      const expectedResult = {
+        type: DELETE_POST,
+        deletedPosts: [fixture]
+      };
+
+      expect(deletePost(fixture)).toEqual(expectedResult);
+    });
+  });
+
+  describe('reloadPosts', () => {
+    it('should return the correct type and the empty deleted post', () => {
+      const expectedResult = {
+        type: RELOAD_POSTS,
+        deletedPosts: []
+      };
+
+      expect(reloadPosts()).toEqual(expectedResult);
     });
   });
 });

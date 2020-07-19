@@ -11,7 +11,7 @@ import {
 } from 'containers/App/selectors';
 import { loadPosts } from 'containers/App/actions';
 
-import { changeUsername, changeTab } from './actions';
+import { changeUsername, changeTab, reloadPosts } from './actions';
 import { makeSelectUsername, makeSelectTab } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,6 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeTab: (index) => {
     dispatch(changeTab(index));
+  },
+  reloadPosts: () => {
+    dispatch(reloadPosts());
   }
 });
 

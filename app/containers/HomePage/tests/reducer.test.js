@@ -1,5 +1,7 @@
 import homeReducer from '../reducer';
-import { changeUsername, changeTab, deletePost } from '../actions';
+import {
+  changeUsername, changeTab, deletePost, reloadPosts
+} from '../actions';
 
 describe('homeReducer', () => {
   let state;
@@ -35,5 +37,11 @@ describe('homeReducer', () => {
     const expectedResult = { ...state, deletedPosts: [1] };
 
     expect(homeReducer(state, deletePost(fixture))).toEqual(expectedResult);
+  });
+
+  it('should handle the reload action correctly', () => {
+    const expectedResult = { ...state, deletedPosts: [] };
+
+    expect(homeReducer(state, reloadPosts())).toEqual(expectedResult);
   });
 });
