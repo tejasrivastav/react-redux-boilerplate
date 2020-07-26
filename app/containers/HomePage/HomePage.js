@@ -27,7 +27,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
   render() {
     const {
-      loading, error, repos, changeTab, activeTab, categories, reloadPosts
+      loading, error, repos, changeTab, activeTab, categories, reloadPosts, updateQuery, query
     } = this.props;
     const reposListProps = {
       loading,
@@ -35,12 +35,19 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       repos
     };
 
+    function queryHandler (evt) {
+      updateQuery(evt.target.value)
+    }
+
     const tabs = categories.map((category) => ({
       label: category,
       content: (<div></div>)
     }));
     tabs[activeTab].content = (
-      <ReposList {...reposListProps} />
+      <div>
+        <input type="text" onChange={queryHandler} value={query} />
+        <ReposList {...reposListProps} />
+      </div>
     );
 
 
@@ -94,6 +101,8 @@ HomePage.propTypes = {
   loadPosts: PropTypes.func,
   changeTab: PropTypes.func,
   reloadPosts: PropTypes.func,
+  updateQuery: PropTypes.func,
+  query: PropTypes.string,
   activeTab: PropTypes.number,
   categories: PropTypes.array
 };

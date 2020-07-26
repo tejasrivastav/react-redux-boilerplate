@@ -9,6 +9,8 @@ const selectGlobal = (state) => state.global || initialState;
 
 const selectRoute = (state) => state.router;
 
+const selectPosts = (state) => state.global.posts;
+
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
   (globalState) => globalState.currentUser
@@ -54,6 +56,7 @@ const makeSelectLocation = () => createSelector(
 
 export {
   selectGlobal,
+  selectPosts,
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,

@@ -1,14 +1,15 @@
 import concat from 'lodash/concat';
 
 import {
-  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS
+  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS, UPDATE_QUERY
 } from './constants';
 
 // The initial state of the App
 const initialState = {
   username: '',
   activeIndex: 0,
-  deletedPosts: []
+  deletedPosts: [],
+  query: ""
 };
 
 function homeReducer(state = initialState, action) {
@@ -22,6 +23,8 @@ function homeReducer(state = initialState, action) {
       return { ...state, deletedPosts: concat(state.deletedPosts, action.index) };
     case RELOAD_POSTS:
       return { ...state, deletedPosts: [] };
+    case UPDATE_QUERY:
+      return { ...state, query: action.text };
     default:
       return state;
   }

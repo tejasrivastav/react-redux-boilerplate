@@ -16,7 +16,7 @@
  */
 
 import {
-  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS
+  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS, UPDATE_QUERY
 } from './constants';
 
 /**
@@ -50,5 +50,12 @@ export function deletePost(index) {
 export function reloadPosts() {
   return {
     type: RELOAD_POSTS
+  };
+}
+
+export function updateQuery(text) {
+  return {
+    type: UPDATE_QUERY,
+    text
   };
 }

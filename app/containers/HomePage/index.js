@@ -11,8 +11,8 @@ import {
 } from 'containers/App/selectors';
 import { loadPosts } from 'containers/App/actions';
 
-import { changeUsername, changeTab, reloadPosts } from './actions';
-import { makeSelectUsername, makeSelectTab } from './selectors';
+import { changeUsername, changeTab, reloadPosts, updateQuery } from './actions';
+import { makeSelectUsername, makeSelectTab, makeSelectQuery } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
@@ -28,6 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   reloadPosts: () => {
     dispatch(reloadPosts());
+  },
+  updateQuery: (text) => {
+    dispatch(updateQuery(text));
   }
 });
 
@@ -37,7 +40,8 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
   activeTab: makeSelectTab(),
-  categories: makeSelectCategories()
+  categories: makeSelectCategories(),
+  query: makeSelectQuery()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
