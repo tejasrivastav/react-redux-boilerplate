@@ -3,17 +3,17 @@
  */
 
 import {
-  call, put, takeLatest, all, select
+  call, put, takeLatest, all, select, debounce
 } from 'redux-saga/effects';
 
 import { LOAD_POSTS } from 'containers/App/constants';
 import { postsLoaded, postLoadingError } from 'containers/App/actions';
 import { selectCategoryPosts } from 'containers/App/selectors';
 import request from 'containers/HomePage/services/postRequest';
-import {search} from "containers/HomePage/services/search";
+import { search } from 'containers/HomePage/services/search';
 import { UPDATE_QUERY } from './constants';
 import { selectQuery } from './selectors';
-import { searchPerformed } from "./actions";
+import { searchPerformed } from './actions';
 
 /**
  * Posts request/response handler
@@ -33,8 +33,8 @@ export function* performSearch() {
   try {
     const query = yield select(selectQuery);
     const posts = yield select(selectCategoryPosts);
-    if(query.trim().length > 0) {
-      let results = search(posts, query);
+    if (query.trim().length > 0) {
+      const results = search(posts, query);
       yield put(searchPerformed(results));
     } else {
       yield put(searchPerformed([]));
@@ -53,6 +53,6 @@ export default function* getData() {
   // It will be cancelled automatically on component unmount
   yield all([
     takeLatest(LOAD_POSTS, getPosts),
-    takeLatest(UPDATE_QUERY, performSearch)
-  ])
+    debounce(200, UPDATE_QUERY, performSearch)
+  ]);
 }

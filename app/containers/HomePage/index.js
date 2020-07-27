@@ -11,8 +11,12 @@ import {
 } from 'containers/App/selectors';
 import { loadPosts } from 'containers/App/actions';
 
-import { changeUsername, changeTab, reloadPosts, updateQuery } from './actions';
-import { makeSelectUsername, makeSelectTab, makeSelectQuery } from './selectors';
+import {
+  changeUsername, changeTab, reloadPosts, updateQuery
+} from './actions';
+import {
+  makeSelectUsername, makeSelectTab, makeSelectQuery
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import HomePage from './HomePage';
@@ -26,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
   changeTab: (index) => {
     // Because the search happened on a different tab the results are not valid
     // thus clear the search before switch of the tabs
-    dispatch(updateQuery(""));
+    dispatch(updateQuery(''));
     dispatch(changeTab(index));
   },
   reloadPosts: () => {
@@ -38,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectPosts(),
+  posts: makeSelectPosts(),
   username: makeSelectUsername(),
   loading: makeSelectLoading(),
   error: makeSelectError(),

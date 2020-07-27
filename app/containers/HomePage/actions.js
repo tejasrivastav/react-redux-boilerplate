@@ -64,5 +64,5 @@ export function searchPerformed(results) {
   return {
     type: SEARCH_PERFORMED,
     results
-  }
+  };
 }

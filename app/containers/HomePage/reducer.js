@@ -9,7 +9,7 @@ const initialState = {
   username: '',
   activeIndex: 0,
   deletedPosts: [],
-  query: "",
+  query: '',
   searchResults: []
 };
 

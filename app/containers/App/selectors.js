@@ -52,8 +52,7 @@ const makeSelectPosts = () => createSelector(
       if (searchResults.length > 0) {
         filteredPosts = searchResults.map((result) => {
           const post = find(posts, ['id', result.id]);
-          post.indexes = result.indexes;
-          return post;
+          return Object.assign({}, post, result);
         });
       }
       deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));

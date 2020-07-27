@@ -25,32 +25,38 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
       }
     };
 
-    // transform this to array of elements to void dangerously set html
-    function HighlightTag(title, indexes) {
-      const splice = function (idx, rem, s) {
-        return (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
-      };
+    // keep appending the markers from behind
+    function Highlight(title, indexes) {
+      const splice = (idx, rem, s) => (this.slice(0, idx) + s + this.slice(idx + Math.abs(rem)));
       function hilightAtPositions(text, posArray) {
         let startPos; let
           endPos;
         posArray = posArray.sort((a, b) => a[0] - b[0]);
 
-        for (let i = posArray.length - 1; i >= 0; i--) {
-          startPos = posArray[i][0];
-          endPos = posArray[i][1];
+        for (let i = posArray.length - 1; i >= 0; i -= 1) {
+          startPos = posArray[i][0]; // eslint-disable-line prefer-destructuring
+          endPos = posArray[i][1]; // eslint-disable-line prefer-destructuring
           text = splice.apply(text, [endPos, 0, '</span>']);
           text = splice.apply(text, [startPos, 0, "<span class='repo-list-item__repo-highlight'>"]);
         }
         return text;
       }
       return hilightAtPositions(title, indexes);
-      // title.substring(0, index) + "<span class='highlight'>" + title.substring(index, index + text.length) + "</span>" + title.substring(index + text.length);
     }
-    // Put together the content of the repository
+
+    function renderTitle(element) {
+      if (!element) {
+        return '';
+      } if (!element.indexes) {
+        return element.title;
+      }
+      return <span dangerouslySetInnerHTML={{ __html: Highlight(element.title, element.indexes) }}></span>;
+    }
+
     const content = (
       <div className="repo-list-item">
         <div className="repo-list-item__repo-link">
-          <span>{item.indexes ? <span dangerouslySetInnerHTML={{ __html: HighlightTag(item.title, item.indexes) }}></span> : item.title}</span>
+          <span>{renderTitle(item)}</span>
         </div>
         <a
           role="button"
@@ -64,7 +70,6 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
       </div>
     );
 
-    // Render the content into a list item
     return (
       <ListItem key={`repo-list-item-${item.id}`} item={content} />
     );
