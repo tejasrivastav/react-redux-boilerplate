@@ -36,12 +36,10 @@ const selectSearchResults = (state) => state.home.searchResults;
 const selectCategoryPosts = createSelector(
   selectPosts,
   selectCategory,
-  (posts, category) => {
-    return filter(
-      posts,
-      (post) => (post.category ? includes(post.category, category) : false)
-    );
-  }
+  (posts, category) => filter(
+    posts,
+    (post) => (post.category ? includes(post.category, category) : false)
+  )
 );
 
 const makeSelectPosts = () => createSelector(
@@ -51,15 +49,17 @@ const makeSelectPosts = () => createSelector(
   (posts, deletedPostIds, searchResults) => {
     try {
       let filteredPosts = posts;
-    if(searchResults.length > 0 )
-      filteredPosts = searchResults.map((result)=>{
-        let post = find(posts, ["id", result.id]);
-        return post;
-      });
-    deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
-    return differenceBy(filteredPosts, deletedPostIds, 'id');
-    } catch(e) {
-      return []
+      if (searchResults.length > 0) {
+        filteredPosts = searchResults.map((result) => {
+          const post = find(posts, ['id', result.id]);
+          post.indexes = result.indexes;
+          return post;
+        });
+      }
+      deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
+      return differenceBy(filteredPosts, deletedPostIds, 'id');
+    } catch (e) {
+      return [];
     }
   }
 );
