@@ -4,6 +4,7 @@ import includes from 'lodash/includes';
 import differenceBy from 'lodash/differenceBy';
 import find from 'lodash/find';
 
+import { selectQuery } from 'containers/HomePage/selectors';
 import { initialState } from './reducer';
 
 const selectGlobal = (state) => state.global || initialState;
@@ -46,8 +47,12 @@ const makeSelectPosts = () => createSelector(
   selectCategoryPosts,
   selectDeletedPostIds,
   selectSearchResults,
-  (posts, deletedPostIds, searchResults) => {
+  selectQuery,
+  (posts, deletedPostIds, searchResults, query) => {
     try {
+      if (query.length > 0 && searchResults.length === 0) {
+        return [];
+      }
       let filteredPosts = posts;
       if (searchResults.length > 0) {
         filteredPosts = searchResults.map((result) => {
