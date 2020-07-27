@@ -24,6 +24,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(loadPosts());
   },
   changeTab: (index) => {
+    // Because the search happened on a different tab the results are not valid
+    // thus clear the search before switch of the tabs
+    dispatch(updateQuery(""));
     dispatch(changeTab(index));
   },
   reloadPosts: () => {

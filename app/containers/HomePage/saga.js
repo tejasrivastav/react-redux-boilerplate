@@ -8,12 +8,12 @@ import {
 
 import { LOAD_POSTS } from 'containers/App/constants';
 import { postsLoaded, postLoadingError } from 'containers/App/actions';
-import { selectPosts } from 'containers/App/selectors';
+import { selectCategoryPosts } from 'containers/App/selectors';
 import request from 'containers/HomePage/services/postRequest';
 import {search} from "containers/HomePage/services/search";
 import { UPDATE_QUERY } from './constants';
 import { selectQuery } from './selectors';
-
+import { searchPerformed } from "./actions";
 
 /**
  * Posts request/response handler
@@ -32,9 +32,13 @@ export function* getPosts() {
 export function* performSearch() {
   try {
     const query = yield select(selectQuery);
-    const posts = yield select(selectPosts);
-    search(posts, query);
-    // yield put(postsLoaded(repos));
+    const posts = yield select(selectCategoryPosts);
+    if(query.trim().length > 0) {
+      let results = search(posts, query);
+      yield put(searchPerformed(results));
+    } else {
+      yield put(searchPerformed([]));
+    }
   } catch (err) {
     // yield put(postLoadingError(err));
   }

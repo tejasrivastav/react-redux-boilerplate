@@ -16,7 +16,7 @@
  */
 
 import {
-  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS, UPDATE_QUERY
+  CHANGE_USERNAME, CHANGE_TAB, DELETE_POST, RELOAD_POSTS, UPDATE_QUERY, SEARCH_PERFORMED
 } from './constants';
 
 /**
@@ -58,4 +58,11 @@ export function updateQuery(text) {
     type: UPDATE_QUERY,
     text
   };
+}
+
+export function searchPerformed(results) {
+  return {
+    type: SEARCH_PERFORMED,
+    results
+  }
 }

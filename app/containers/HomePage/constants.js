@@ -14,3 +14,4 @@ export const CHANGE_TAB = 'boilerplate/Home/CHANGE_TAB';
 export const DELETE_POST = 'boilerplate/Home/DELETE_POST';
 export const RELOAD_POSTS = 'boilerplate/Home/RELOAD_POSTS';
 export const UPDATE_QUERY = 'boilerplate/Home/UPDATE_QUERY';
+export const SEARCH_PERFORMED = 'boilerplate/Home/SEARCH_PERFORMED';

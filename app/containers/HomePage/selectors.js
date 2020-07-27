@@ -19,10 +19,16 @@ const makeSelectQuery = () => createSelector(
   (homeState) => homeState.query
 );
 
+const makeSelectSearchResults = () => createSelector(
+  selectHome,
+  (homeState) => homeState.searchResults
+);
+
 export {
   selectHome,
   selectQuery,
   makeSelectUsername,
   makeSelectTab,
-  makeSelectQuery
+  makeSelectQuery,
+  makeSelectSearchResults
 };

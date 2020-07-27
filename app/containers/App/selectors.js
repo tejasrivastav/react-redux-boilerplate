@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
 import differenceBy from 'lodash/differenceBy';
+import find from 'lodash/find';
 
 import { initialState } from './reducer';
 
@@ -30,17 +31,36 @@ const selectCategory = (state) => state.global.categoriesName[state.home.activeI
 
 const selectDeletedPostIds = (state) => state.home.deletedPosts;
 
-const makeSelectPosts = () => createSelector(
-  selectGlobal,
+const selectSearchResults = (state) => state.home.searchResults;
+
+const selectCategoryPosts = createSelector(
+  selectPosts,
   selectCategory,
-  selectDeletedPostIds,
-  (globalState, category, deletedPostIds) => {
-    deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
-    const reducedPosts = differenceBy(globalState.posts, deletedPostIds, 'id');
+  (posts, category) => {
     return filter(
-      reducedPosts,
+      posts,
       (post) => (post.category ? includes(post.category, category) : false)
     );
+  }
+);
+
+const makeSelectPosts = () => createSelector(
+  selectCategoryPosts,
+  selectDeletedPostIds,
+  selectSearchResults,
+  (posts, deletedPostIds, searchResults) => {
+    try {
+      let filteredPosts = posts;
+    if(searchResults.length > 0 )
+      filteredPosts = searchResults.map((result)=>{
+        let post = find(posts, ["id", result.id]);
+        return post;
+      });
+    deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
+    return differenceBy(filteredPosts, deletedPostIds, 'id');
+    } catch(e) {
+      return []
+    }
   }
 );
 
@@ -57,6 +77,7 @@ const makeSelectLocation = () => createSelector(
 export {
   selectGlobal,
   selectPosts,
+  selectCategoryPosts,
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
