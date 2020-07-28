@@ -7,8 +7,8 @@ import { categories } from 'containers/App/constants';
 * exectute them over the row
 */
 
-function transform(repos) {
-  repos.forEach((row) => {
+function transform(posts) {
+  posts.forEach((row) => {
     categories.forEach((category) => {
       if (category.exec(row)) {
         row.category = row.category || [];
@@ -16,7 +16,7 @@ function transform(repos) {
       }
     });
   });
-  return repos;
+  return posts;
 }
 
 export default function (endpoint) {
