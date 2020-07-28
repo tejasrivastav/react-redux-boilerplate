@@ -58,6 +58,7 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
         </div>
         <a
           role="button"
+          id="repo-list-item__del-link"
           className="repo-list-item__del-link"
           onClick={deletePostHandler}
           onKeyDown={handleKeyDown}
