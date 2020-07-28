@@ -7,20 +7,40 @@ describe('Search', () => {
       {
         userId: 1,
         id: 1,
-        title: 'sunt aut facere repellat providentqui occaecati excepturi optio reprehenderit',
-        body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto'
+        title: 'sunt aut facere repellat providentqui occaecati excepturi optio reprehenderit'
       },
       {
         userId: 1,
         id: 2,
-        title: 'qui est esse qui',
-        body: 'est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla'
+        title: 'qui est esse qui'
       }
     ];
   });
 
-  it('fucnction invoked', () => {
+  it('for the keyword qui', () => {
     const result = search(posts, 'qui');
-    expect([['qui']]).toEqual(result);
+    const outcome = [
+      {
+        id: 1,
+        indexes: [[34, 37]]
+      },
+      {
+        id: 2,
+        indexes: [[0, 3], [13, 16]]
+      }
+    ];
+    expect(result).toEqual(outcome);
+  });
+
+  it('for the keyword max', () => {
+    const result = search(posts, 'max');
+    const outcome = [];
+    expect(result).toEqual(outcome);
+  });
+
+  it('return for empty substring', () => {
+    const result = search(posts, '');
+    const outcome = [];
+    expect(result).toEqual(outcome);
   });
 });
