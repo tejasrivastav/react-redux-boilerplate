@@ -24,14 +24,13 @@ describe('App Actions', () => {
   describe('postsLoaded', () => {
     it('should return the correct type and the passed repos', () => {
       const fixture = ['Test'];
-      const username = 'test';
+
       const expectedResult = {
         type: LOAD_POSTS_SUCCESS,
-        posts: fixture,
-        username,
+        posts: fixture
       };
 
-      expect(postsLoaded(fixture, username)).toEqual(expectedResult);
+      expect(postsLoaded(fixture)).toEqual(expectedResult);
     });
   });
 

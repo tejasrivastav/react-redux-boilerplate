@@ -7,6 +7,8 @@ import {
   makeSelectLocation,
 } from '../selectors';
 
+import categoriesName from '../constants';
+
 describe('selectGlobal', () => {
   it('should select the global state', () => {
     const globalState = {};
@@ -56,14 +58,18 @@ describe('makeSelectError', () => {
   });
 });
 
-describe('makeSelectPosts', () => {
+xdescribe('makeSelectPosts', () => {
   const reposSelector = makeSelectPosts();
   it('should select the repos', () => {
     const repositories = [];
     const mockedState = {
       global: {
-        posts: repositories
+        posts: repositories,
+        categoriesName
       },
+      home: {
+        activeIndex: 0
+      }
     };
     expect(reposSelector(mockedState)).toEqual(repositories);
   });

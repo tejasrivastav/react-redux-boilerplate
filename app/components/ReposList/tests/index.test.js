@@ -34,7 +34,7 @@ describe('<ReposList />', () => {
       }
     ];
     const renderedComponent = shallow(
-      <ReposList repos={repos} error={false} />
+      <ReposList list={repos} error={false} />
     );
 
     expect(
@@ -46,7 +46,7 @@ describe('<ReposList />', () => {
 
   it('should not render anything if nothing interesting is provided', () => {
     const renderedComponent = shallow(
-      <ReposList repos={false} error={false} loading={false} />
+      <ReposList list={false} error={false} loading={false} />
     );
 
     expect(renderedComponent.html()).toEqual(null);

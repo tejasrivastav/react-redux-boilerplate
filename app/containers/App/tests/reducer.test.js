@@ -8,7 +8,12 @@ describe('appReducer', () => {
       loading: false,
       error: false,
       currentUser: false,
-      posts: []
+      posts: [],
+      categoriesName: [
+        'thirds',
+        'fifths',
+        'magic',
+      ],
     };
   });
 
@@ -33,15 +38,15 @@ describe('appReducer', () => {
         name: 'My Repo',
       },
     ];
-    const username = 'test';
+
     const expectedResult = {
       ...state,
       loading: false,
-      currentUser: username,
-      posts: []
+      posts: fixture,
+      currentUser: undefined
     };
 
-    expect(appReducer(state, postsLoaded(fixture, username))).toEqual(
+    expect(appReducer(state, postsLoaded(fixture))).toEqual(
       expectedResult,
     );
   });
