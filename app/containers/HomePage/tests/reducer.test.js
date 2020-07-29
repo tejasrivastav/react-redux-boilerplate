@@ -9,7 +9,9 @@ describe('homeReducer', () => {
     state = {
       username: '',
       activeIndex: 0,
-      deletedPosts: []
+      deletedPosts: [],
+      query: '',
+      searchResults: []
     };
   });
 

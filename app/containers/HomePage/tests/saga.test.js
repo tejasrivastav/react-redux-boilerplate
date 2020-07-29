@@ -2,14 +2,15 @@
  * Tests for HomePage sagas
  */
 
-import { put, takeLatest } from 'redux-saga/effects';
+import {
+  put, takeLatest, all, debounce
+} from 'redux-saga/effects';
 
 import { LOAD_POSTS } from 'containers/App/constants';
 import { postsLoaded, postLoadingError } from 'containers/App/actions';
+import { UPDATE_QUERY } from 'containers/HomePage/constants';
+import getData, { getPosts, performSearch } from '../saga';
 
-import getData, { getPosts } from '../saga';
-
-const username = 'flexdinesh';
 
 /* eslint-disable redux-saga/yield-effects */
 describe('getPosts Saga', () => {
@@ -22,9 +23,6 @@ describe('getPosts Saga', () => {
 
     const selectDescriptor = getPostsGenerator.next().value;
     expect(selectDescriptor).toMatchSnapshot();
-
-    const callDescriptor = getPostsGenerator.next(username).value;
-    expect(callDescriptor).toMatchSnapshot();
   });
 
   it('should dispatch the postsLoaded action if it requests the data successfully', () => {
@@ -34,7 +32,7 @@ describe('getPosts Saga', () => {
       name: 'Second repo',
     }];
     const putDescriptor = getPostsGenerator.next(response).value;
-    expect(putDescriptor).toEqual(put(postsLoaded(response, username)));
+    expect(putDescriptor).toEqual(put(postsLoaded(response)));
   });
 
   it('should call the postLoadingError action if the response errors', () => {
@@ -49,6 +47,9 @@ describe('getDataSaga Saga', () => {
 
   it('should start task to watch for LOAD_POSTS action', () => {
     const takeLatestDescriptor = getDataSaga.next().value;
-    expect(takeLatestDescriptor).toEqual(takeLatest(LOAD_POSTS, getPosts));
+    expect(takeLatestDescriptor).toEqual(all([
+      takeLatest(LOAD_POSTS, getPosts),
+      debounce(200, UPDATE_QUERY, performSearch)
+    ]));
   });
 });

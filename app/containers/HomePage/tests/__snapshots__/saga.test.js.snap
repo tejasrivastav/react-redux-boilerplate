@@ -15,21 +15,6 @@ Object {
 }
 `;
 
-exports[`getPosts Saga should call the postLoadingError action if the response errors 2`] = `
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "action": Object {
-      "posts": "flexdinesh",
-      "type": "boilerplate/App/LOAD_POSTS_SUCCESS",
-    },
-    "channel": undefined,
-  },
-  "type": "PUT",
-}
-`;
-
 exports[`getPosts Saga should dispatch the postsLoaded action if it requests the data successfully 1`] = `
 Object {
   "@@redux-saga/IO": true,
@@ -42,20 +27,5 @@ Object {
     "fn": [Function],
   },
   "type": "CALL",
-}
-`;
-
-exports[`getPosts Saga should dispatch the postsLoaded action if it requests the data successfully 2`] = `
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "action": Object {
-      "posts": "flexdinesh",
-      "type": "boilerplate/App/LOAD_POSTS_SUCCESS",
-    },
-    "channel": undefined,
-  },
-  "type": "PUT",
 }
 `;

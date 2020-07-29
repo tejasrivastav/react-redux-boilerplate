@@ -27,7 +27,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
   render() {
     const {
-      loading, error, posts, changeTab, activeTab, categories, reloadPosts, updateQuery, query
+      loading, error, posts, changeTab, activeTab = 0, categories, reloadPosts, updateQuery, query
     } = this.props;
 
     const reposListProps = {
@@ -44,13 +44,15 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       label: category,
       content: (<div></div>)
     }));
-    tabs[activeTab].content = (
-      <div>
-        <input type="text" onChange={queryHandler} value={query} />
-        <ReposList {...reposListProps} />
-      </div>
-    );
 
+    if (tabs.length > 0) {
+      tabs[activeTab].content = (
+        <div>
+          <input type="text" onChange={queryHandler} value={query} />
+          <ReposList {...reposListProps} />
+        </div>
+      );
+    }
 
     function reloadPostsHandler(evt) {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();

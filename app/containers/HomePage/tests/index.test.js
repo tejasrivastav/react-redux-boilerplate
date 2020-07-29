@@ -3,66 +3,43 @@
  */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import ReposList from 'components/ReposList';
 import HomePage from '../HomePage';
 import { mapDispatchToProps } from '../index';
-import { changeUsername } from '../actions';
-import { loadPosts } from '../../App/actions';
+import {
+  loadPosts
+} from '../../App/actions';
+import { changeTab, reloadPosts, updateQuery } from '../actions';
 
 describe('<HomePage />', () => {
-  it('should render the repos list', () => {
-    const renderedComponent = shallow(
-      <HomePage loading error={false} repos={[]} />
+  it('should not render the repos list', () => {
+    const mockLoadPosts = jest.fn();
+    const renderedComponent = mount(
+      <HomePage loading error={false} posts={[]} categories={[]} loadPosts={mockLoadPosts} />
     );
     expect(
-      renderedComponent.contains(<ReposList loading error={false} repos={[]} />)
+      renderedComponent.contains(<ReposList loading error={false} posts={[]} />)
+    ).toEqual(false);
+  });
+
+  it('should render the repos list', () => {
+    const mockLoadPosts = jest.fn();
+    const posts = [{
+      id: 1,
+      title: 'abc',
+      category: ['thirds']
+    }];
+    const renderedComponent = mount(
+      <HomePage loading error={false} posts={posts} categories={['thirds']} loadPosts={mockLoadPosts} />
+    );
+    expect(
+      renderedComponent.contains(<ReposList loading error={false} list={posts} />)
     ).toEqual(true);
   });
 
-  it('should render fetch the repos on mount if a username exists', () => {
-    const submitSpy = jest.fn();
-    mount(
-      <HomePage
-        username="Not Empty"
-        onChangeUsername={() => {}}
-        loadPosts={submitSpy}
-      />
-    );
-    expect(submitSpy).toHaveBeenCalled();
-  });
-
-
-  it('should not call loadPosts if username is null', () => {
-    const submitSpy = jest.fn();
-    mount(
-      <HomePage
-        username=""
-        onChangeUsername={() => {}}
-        loadPosts={submitSpy}
-      />
-    );
-    expect(submitSpy).not.toHaveBeenCalled();
-  });
-
   describe('mapDispatchToProps', () => {
-    describe('onChangeUsername', () => {
-      it('should be injected', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        expect(result.onChangeUsername).toBeDefined();
-      });
-
-      it('should dispatch changeUsername when called', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        const username = 'flexdinesh';
-        result.onChangeUsername({ target: { value: username } });
-        expect(dispatch).toHaveBeenCalledWith(changeUsername(username));
-      });
-    });
-
     describe('loadPosts', () => {
       it('should be injected', () => {
         const dispatch = jest.fn();
@@ -76,12 +53,36 @@ describe('<HomePage />', () => {
         result.loadPosts();
         expect(dispatch).toHaveBeenCalledWith(loadPosts());
       });
+    });
 
-      it('should preventDefault if called with event', () => {
-        const preventDefault = jest.fn();
-        const result = mapDispatchToProps(() => {});
-        result.loadPosts();
-        expect(preventDefault).toHaveBeenCalledWith();
+    describe('changeTab', () => {
+      it('should be injected', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        expect(result.changeTab).toBeDefined();
+      });
+
+      it('should dispatch loadPosts when called', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        result.changeTab();
+        expect(dispatch).toHaveBeenCalledWith(updateQuery(''));
+        expect(dispatch).toHaveBeenCalledWith(changeTab());
+      });
+    });
+
+    describe('reloadPosts', () => {
+      it('should be injected', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        expect(result.reloadPosts).toBeDefined();
+      });
+
+      it('should dispatch loadPosts when called', () => {
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        result.reloadPosts();
+        expect(dispatch).toHaveBeenCalledWith(reloadPosts());
       });
     });
   });

@@ -24,7 +24,7 @@ describe('Home Actions', () => {
       const fixture = 1;
       const expectedResult = {
         type: CHANGE_TAB,
-        activeIndex: fixture
+        index: fixture
       };
 
       expect(changeTab(fixture)).toEqual(expectedResult);
@@ -36,7 +36,7 @@ describe('Home Actions', () => {
       const fixture = 1;
       const expectedResult = {
         type: DELETE_POST,
-        deletedPosts: [fixture]
+        index: 1
       };
 
       expect(deletePost(fixture)).toEqual(expectedResult);
@@ -46,8 +46,7 @@ describe('Home Actions', () => {
   describe('reloadPosts', () => {
     it('should return the correct type and the empty deleted post', () => {
       const expectedResult = {
-        type: RELOAD_POSTS,
-        deletedPosts: []
+        type: RELOAD_POSTS
       };
 
       expect(reloadPosts()).toEqual(expectedResult);
