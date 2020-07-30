@@ -43,7 +43,7 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
     }
 
     function renderTitle(element) {
-      if (!element) {
+      if (!element && !element.title) {
         return '';
       } if (!element.indexes) {
         return element.title;

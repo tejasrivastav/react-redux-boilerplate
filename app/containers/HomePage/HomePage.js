@@ -48,7 +48,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     if (tabs.length > 0) {
       tabs[activeTab].content = (
         <div>
-          <input type="text" onChange={queryHandler} value={query} />
+          <input type="text" onChange={queryHandler} value={query} placeholder="Search here"/>
           <ReposList {...reposListProps} />
         </div>
       );

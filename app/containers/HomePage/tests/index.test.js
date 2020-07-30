@@ -11,7 +11,9 @@ import { mapDispatchToProps } from '../index';
 import {
   loadPosts
 } from '../../App/actions';
-import { changeTab, reloadPosts, updateQuery } from '../actions';
+import {
+  changeTab, reloadPosts, updateQuery, searchPerformed
+} from '../actions';
 
 describe('<HomePage />', () => {
   it('should not render the repos list', () => {
@@ -67,6 +69,7 @@ describe('<HomePage />', () => {
         const result = mapDispatchToProps(dispatch);
         result.changeTab();
         expect(dispatch).toHaveBeenCalledWith(updateQuery(''));
+        expect(dispatch).toHaveBeenCalledWith(searchPerformed([]));
         expect(dispatch).toHaveBeenCalledWith(changeTab());
       });
     });

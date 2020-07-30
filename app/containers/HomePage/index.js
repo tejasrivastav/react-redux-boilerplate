@@ -12,7 +12,7 @@ import {
 import { loadPosts } from 'containers/App/actions';
 
 import {
-  changeUsername, changeTab, reloadPosts, updateQuery
+  changeUsername, changeTab, reloadPosts, updateQuery, searchPerformed
 } from './actions';
 import {
   makeSelectUsername, makeSelectTab, makeSelectQuery
@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
     // Because the search happened on a different tab the results are not valid
     // thus clear the search before switch of the tabs
     dispatch(updateQuery(''));
+    dispatch(searchPerformed([]));
     dispatch(changeTab(index));
   },
   reloadPosts: () => {
