@@ -1,5 +1,5 @@
 /**
- * RepoListItem
+ * PostListItem
  *
  * Lists the name and the issue count of a repository
  */
@@ -10,7 +10,7 @@ import ListItem from 'components/ListItem';
 import { DeleteIcon } from 'components/Icons';
 import './style.scss';
 
-export default class RepoListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class PostListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { item, deletePost } = this.props;
 
@@ -75,7 +75,7 @@ export default class RepoListItem extends React.PureComponent { // eslint-disabl
   }
 }
 
-RepoListItem.propTypes = {
+PostListItem.propTypes = {
   item: PropTypes.object,
   deletePost: PropTypes.func
 };

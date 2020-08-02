@@ -7,13 +7,13 @@ import { shallow, render, mount } from 'enzyme';
 
 import ListItem from 'components/ListItem';
 import { deletePost } from 'containers/HomePage/actions';
-import RepoListItem from '../RepoListItem';
+import PostListItem from '../PostListItem';
 import { mapDispatchToProps } from '../index';
 
-const renderComponent = (props = {}) => render(<RepoListItem {...props} />);
-const shallowComponent = (props = {}) => shallow(<RepoListItem {...props} />);
+const renderComponent = (props = {}) => render(<PostListItem {...props} />);
+const shallowComponent = (props = {}) => shallow(<PostListItem {...props} />);
 
-describe.only('<RepoListItem />', () => {
+describe.only('<PostListItem />', () => {
   let item;
 
   // Before each test reset the item data for safety
@@ -54,14 +54,14 @@ describe.only('<RepoListItem />', () => {
 
   it('should call deletePost when delete is clicked', () => {
     const onClick = jest.fn();
-    const renderedComponent = mount((<RepoListItem item={item} deletePost={onClick} />));
+    const renderedComponent = mount((<PostListItem item={item} deletePost={onClick} />));
     renderedComponent.find('a').simulate('click');
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('should call deletePost when delete on enter keypress', () => {
     const onKeyDown = jest.fn();
-    const renderedComponent = mount((<RepoListItem item={item} deletePost={onKeyDown} />));
+    const renderedComponent = mount((<PostListItem item={item} deletePost={onKeyDown} />));
     renderedComponent.find('a').simulate('keydown', { key: 'Enter' });
     expect(onKeyDown).toHaveBeenCalledTimes(1);
   });

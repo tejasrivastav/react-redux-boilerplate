@@ -5,7 +5,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import ReposList from 'components/ReposList';
+import PostsList from 'components/PostsList';
 import HomePage from '../HomePage';
 import { mapDispatchToProps } from '../index';
 import {
@@ -22,7 +22,7 @@ describe('<HomePage />', () => {
       <HomePage loading error={false} posts={[]} categories={[]} loadPosts={mockLoadPosts} />
     );
     expect(
-      renderedComponent.contains(<ReposList loading error={false} posts={[]} />)
+      renderedComponent.contains(<PostsList loading error={false} posts={[]} />)
     ).toEqual(false);
   });
 
@@ -37,7 +37,7 @@ describe('<HomePage />', () => {
       <HomePage loading error={false} posts={posts} categories={['thirds']} loadPosts={mockLoadPosts} />
     );
     expect(
-      renderedComponent.contains(<ReposList loading error={false} list={posts} />)
+      renderedComponent.contains(<PostsList loading error={false} list={posts} />)
     ).toEqual(true);
   });
 

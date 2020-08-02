@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReposList from 'components/ReposList';
+import PostsList from 'components/PostsList';
 
 import { ReloadIcon } from 'components/Icons';
 import './style.scss';
@@ -30,7 +30,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       loading, error, posts, changeTab, activeTab = 0, categories, reloadPosts, updateQuery, query
     } = this.props;
 
-    const reposListProps = {
+    const PostsListProps = {
       loading,
       error,
       list: posts
@@ -48,8 +48,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     if (tabs.length > 0) {
       tabs[activeTab].content = (
         <div>
-          <input type="text" onChange={queryHandler} value={query} placeholder="Search here"/>
-          <ReposList {...reposListProps} />
+          <input type="text" onChange={queryHandler} value={query} placeholder="Search here" />
+          <PostsList {...PostsListProps} />
         </div>
       );
     }

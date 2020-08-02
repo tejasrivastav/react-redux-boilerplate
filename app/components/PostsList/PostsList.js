@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
-import RepoListItem from 'containers/RepoListItem';
+import PostListItem from 'containers/PostListItem';
 
-const ReposList = ({ loading, error, list }) => {
+const PostsList = ({ loading, error, list }) => {
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -19,16 +19,16 @@ const ReposList = ({ loading, error, list }) => {
   }
 
   if (list !== false) {
-    return <List items={list} component={RepoListItem} />;
+    return <List items={list} component={PostListItem} />;
   }
 
   return null;
 };
 
-ReposList.propTypes = {
+PostsList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
   list: PropTypes.any
 };
 
-export default ReposList;
+export default PostsList;
