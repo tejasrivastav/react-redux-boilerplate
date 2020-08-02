@@ -49,22 +49,18 @@ const makeSelectPosts = () => createSelector(
   selectSearchResults,
   selectQuery,
   (posts, deletedPostIds, searchResults, query) => {
-    try {
-      if (query.length > 0 && searchResults.length === 0) {
-        return [];
-      }
-      let filteredPosts = posts;
-      if (searchResults.length > 0) {
-        filteredPosts = searchResults.map((result) => {
-          const post = find(posts, ['id', result.id]);
-          return Object.assign({}, post, result);
-        });
-      }
-      deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
-      return differenceBy(filteredPosts, deletedPostIds, 'id');
-    } catch (e) {
+    if (query.length > 0 && searchResults.length === 0) {
       return [];
     }
+    let filteredPosts = posts;
+    if (searchResults.length > 0) {
+      filteredPosts = searchResults.map((result) => {
+        const post = find(posts, ['id', result.id]);
+        return Object.assign({}, post, result);
+      });
+    }
+    deletedPostIds = deletedPostIds.map((postid) => ({ id: postid }));
+    return differenceBy(filteredPosts, deletedPostIds, 'id');
   }
 );
 
