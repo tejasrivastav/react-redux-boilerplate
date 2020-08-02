@@ -22,5 +22,6 @@ function transform(posts) {
 export default function (endpoint) {
   return request(endpoint).then(transform).catch((err) => {
     console.error(err);
+    return [];
   });
 }

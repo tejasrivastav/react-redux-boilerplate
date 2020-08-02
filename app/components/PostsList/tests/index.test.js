@@ -22,24 +22,19 @@ describe('<PostsList />', () => {
   });
 
   it('should render the repositories if loading was successful', () => {
-    const repos = [
+    const posts = [
       {
-        owner: {
-          login: 'flexdinesh'
-        },
-        html_url: 'https://github.com/flexdinesh/react-redux-boilerplate',
-        name: 'react-redux-boilerplate',
-        open_issues_count: 20,
-        full_name: 'flexdinesh/react-redux-boilerplate'
+        id: 1,
+        title: 'Abc'
       }
     ];
     const renderedComponent = shallow(
-      <PostsList list={repos} error={false} />
+      <PostsList list={posts} error={false} />
     );
 
     expect(
       renderedComponent.contains(
-        <List items={repos} component={PostListItem} />
+        <List items={posts} component={PostListItem} />
       )
     ).toEqual(true);
   });
@@ -50,5 +45,13 @@ describe('<PostsList />', () => {
     );
 
     expect(renderedComponent.html()).toEqual(null);
+  });
+
+  it('should not render anything if nothing interesting is provided', () => {
+    const emptyList = [];
+    const renderedComponent = mount(
+      <PostsList list={emptyList} error={false} loading={false} />
+    );
+    expect(renderedComponent.text()).toMatch(/No results to show/);
   });
 });

@@ -18,6 +18,13 @@ const PostsList = ({ loading, error, list }) => {
     return <List component={ErrorComponent} />;
   }
 
+  if (list.length === 0) {
+    const EmptyComponent = () => (
+      <ListItem item={'No results to show'} />
+    );
+    return <List component={EmptyComponent} />;
+  }
+
   if (list !== false) {
     return <List items={list} component={PostListItem} />;
   }
