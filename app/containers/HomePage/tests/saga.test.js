@@ -3,16 +3,34 @@
  */
 
 import {
-  put, takeLatest, all, debounce
+  put, takeLatest, all, debounce, select
 } from 'redux-saga/effects';
+import { expectSaga } from 'redux-saga-test-plan';
 
 import { LOAD_POSTS } from 'containers/App/constants';
+import { selectCategoryPosts } from 'containers/App/selectors';
 import { postsLoaded, postLoadingError } from 'containers/App/actions';
 import { UPDATE_QUERY } from 'containers/HomePage/constants';
+import { selectQuery } from 'containers/HomePage/selectors';
+
+import { searchPerformed, updateQuery } from 'containers/HomePage/actions';
 import getData, { getPosts, performSearch } from '../saga';
 
 
 /* eslint-disable redux-saga/yield-effects */
+
+describe('getDataSaga Saga', () => {
+  const getDataSaga = getData();
+
+  it('should start task to watch for LOAD_POSTS and UPDATE_QUERY actions', () => {
+    const takeLatestDescriptor = getDataSaga.next().value;
+    expect(takeLatestDescriptor).toEqual(all([
+      takeLatest(LOAD_POSTS, getPosts),
+      debounce(200, UPDATE_QUERY, performSearch)
+    ]));
+  });
+});
+
 describe('getPosts Saga', () => {
   let getPostsGenerator;
 
@@ -42,14 +60,46 @@ describe('getPosts Saga', () => {
   });
 });
 
-describe('getDataSaga Saga', () => {
-  const getDataSaga = getData();
+describe('Perform Search', () => {
+  it('should return the indices of matched results', () => {
+    const query = 'First';
+    const posts = [{
+      id: 1,
+      title: 'First post'
+    }, {
+      id: 2,
+      title: 'Second post'
+    }];
+    const response = [{ id: 1, indexes: [[0, 5]] }];
 
-  it('should start task to watch for LOAD_POSTS action', () => {
-    const takeLatestDescriptor = getDataSaga.next().value;
-    expect(takeLatestDescriptor).toEqual(all([
-      takeLatest(LOAD_POSTS, getPosts),
-      debounce(200, UPDATE_QUERY, performSearch)
-    ]));
+    return expectSaga(performSearch)
+      .provide([
+        [select(selectQuery), query],
+        [select(selectCategoryPosts), posts]
+      ])
+      .put(searchPerformed(response))
+      .dispatch(updateQuery(query))
+      .run();
+  });
+
+  it('should return the empty array for empty query', () => {
+    const query = '';
+    const posts = [{
+      id: 1,
+      title: 'First post'
+    }, {
+      id: 2,
+      title: 'Second post'
+    }];
+    const response = [];
+
+    return expectSaga(performSearch)
+      .provide([
+        [select(selectQuery), query],
+        [select(selectCategoryPosts), posts]
+      ])
+      .put(searchPerformed(response))
+      .dispatch(updateQuery(query))
+      .run();
   });
 });

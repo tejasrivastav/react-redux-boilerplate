@@ -34,13 +34,14 @@ export function* performSearch() {
     const query = yield select(selectQuery);
     const posts = yield select(selectCategoryPosts);
     if (query.trim().length > 0) {
-      const results = search(posts, query);
+      const results = yield call(search, posts, query);
       yield put(searchPerformed(results));
     } else {
       yield put(searchPerformed([]));
     }
   } catch (err) {
-    // yield put(postLoadingError(err));
+    console.log(err);
+    // TODO: handle error
   }
 }
 /**

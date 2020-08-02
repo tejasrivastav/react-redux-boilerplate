@@ -1,4 +1,6 @@
-import { selectHome, makeSelectUsername, makeSelectTab } from '../selectors';
+import {
+  selectHome, makeSelectUsername, makeSelectTab, makeSelectQuery, makeSelectSearchResults
+} from '../selectors';
 
 describe('selectHome', () => {
   it('should select the home state', () => {
@@ -35,5 +37,36 @@ describe('makeSelectTab', () => {
       },
     };
     expect(tabSelector(mockedState)).toEqual(activeIndex);
+  });
+});
+
+describe('makeSelectQuery', () => {
+  const querySelector = makeSelectQuery();
+  it('should select the current query', () => {
+    const query = 0;
+    const mockedState = {
+      home: {
+        query,
+      },
+    };
+    expect(querySelector(mockedState)).toEqual(query);
+  });
+});
+
+describe('makeSelectSearchResults', () => {
+  const resultsSelector = makeSelectSearchResults();
+  it('should select the current query', () => {
+    const searchResults = [
+      {
+        id: 1,
+        indexes: [0, 5]
+      }
+    ];
+    const mockedState = {
+      home: {
+        searchResults,
+      },
+    };
+    expect(resultsSelector(mockedState)).toEqual(searchResults);
   });
 });

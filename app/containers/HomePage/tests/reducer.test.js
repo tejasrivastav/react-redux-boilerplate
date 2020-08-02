@@ -1,6 +1,6 @@
 import homeReducer from '../reducer';
 import {
-  changeUsername, changeTab, deletePost, reloadPosts
+  changeUsername, changeTab, deletePost, reloadPosts, updateQuery, searchPerformed
 } from '../actions';
 
 describe('homeReducer', () => {
@@ -45,5 +45,17 @@ describe('homeReducer', () => {
     const expectedResult = { ...state, deletedPosts: [] };
 
     expect(homeReducer(state, reloadPosts())).toEqual(expectedResult);
+  });
+
+  it('should handle the query update action correctly', () => {
+    const expectedResult = { ...state, query: 'First' };
+
+    expect(homeReducer(state, updateQuery('First'))).toEqual(expectedResult);
+  });
+
+  it('should handle the query update action correctly', () => {
+    const expectedResult = { ...state, searchResults: [] };
+
+    expect(homeReducer(state, searchPerformed([]))).toEqual(expectedResult);
   });
 });
